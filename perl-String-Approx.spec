@@ -4,15 +4,15 @@
 #
 Name     : perl-String-Approx
 Version  : 3.28
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-3.28.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-3.28.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libstring-approx-perl/libstring-approx-perl_3.28-1.debian.tar.xz
 Summary  : unknown
 Group    : Development/Tools
 License  : Artistic-2.0 GPL-2.0 LGPL-2.1 MIT
-Requires: perl-String-Approx-lib = %{version}-%{release}
 Requires: perl-String-Approx-license = %{version}-%{release}
+Requires: perl-String-Approx-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -24,20 +24,11 @@ of version 2.
 %package dev
 Summary: dev components for the perl-String-Approx package.
 Group: Development
-Requires: perl-String-Approx-lib = %{version}-%{release}
 Provides: perl-String-Approx-devel = %{version}-%{release}
+Requires: perl-String-Approx = %{version}-%{release}
 
 %description dev
 dev components for the perl-String-Approx package.
-
-
-%package lib
-Summary: lib components for the perl-String-Approx package.
-Group: Libraries
-Requires: perl-String-Approx-license = %{version}-%{release}
-
-%description lib
-lib components for the perl-String-Approx package.
 
 
 %package license
@@ -48,18 +39,28 @@ Group: Default
 license components for the perl-String-Approx package.
 
 
+%package perl
+Summary: perl components for the perl-String-Approx package.
+Group: Default
+Requires: perl-String-Approx = %{version}-%{release}
+
+%description perl
+perl components for the perl-String-Approx package.
+
+
 %prep
 %setup -q -n String-Approx-3.28
-cd ..
-%setup -q -T -D -n String-Approx-3.28 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libstring-approx-perl_3.28-1.debian.tar.xz
+cd %{_builddir}/String-Approx-3.28
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/String-Approx-3.28/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/String-Approx-3.28/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -69,7 +70,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -78,8 +79,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-String-Approx
-cp COPYRIGHT %{buildroot}/usr/share/package-licenses/perl-String-Approx/COPYRIGHT
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-String-Approx/deblicense_copyright
+cp %{_builddir}/String-Approx-3.28/COPYRIGHT %{buildroot}/usr/share/package-licenses/perl-String-Approx/c226167a0c606d7e74edb67c064ebb0601632822
+cp %{_builddir}/String-Approx-3.28/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-String-Approx/03541f8a2226faadda8a44f1694abd082daffd30
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -92,17 +93,17 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/String/Approx.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/String::Approx.3
 
-%files lib
-%defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/String/Approx/Approx.so
-
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-String-Approx/COPYRIGHT
-/usr/share/package-licenses/perl-String-Approx/deblicense_copyright
+/usr/share/package-licenses/perl-String-Approx/03541f8a2226faadda8a44f1694abd082daffd30
+/usr/share/package-licenses/perl-String-Approx/c226167a0c606d7e74edb67c064ebb0601632822
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/String/Approx.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/String/Approx/Approx.so
