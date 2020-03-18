@@ -4,7 +4,7 @@
 #
 Name     : perl-String-Approx
 Version  : 3.28
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-3.28.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-3.28.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libstring-approx-perl/libstring-approx-perl_3.28-1.debian.tar.xz
@@ -80,7 +80,7 @@ make TEST_VERBOSE=1 test
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-String-Approx
 cp %{_builddir}/String-Approx-3.28/COPYRIGHT %{buildroot}/usr/share/package-licenses/perl-String-Approx/c226167a0c606d7e74edb67c064ebb0601632822
-cp %{_builddir}/String-Approx-3.28/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-String-Approx/03541f8a2226faadda8a44f1694abd082daffd30
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-String-Approx/03541f8a2226faadda8a44f1694abd082daffd30
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -105,5 +105,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/String/Approx.pm
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/String/Approx/Approx.so
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/String/Approx.pm
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/auto/String/Approx/Approx.so
