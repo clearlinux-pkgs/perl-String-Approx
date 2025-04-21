@@ -7,7 +7,7 @@
 #
 Name     : perl-String-Approx
 Version  : 3.28
-Release  : 28
+Release  : 29
 URL      : https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-3.28.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-3.28.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libstring-approx-perl/libstring-approx-perl_3.28-1.debian.tar.xz
